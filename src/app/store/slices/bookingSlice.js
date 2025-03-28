@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import triggerNotification from '@/app/utils/toast';
 
 const initialState = {
-  bookings: JSON.parse(localStorage.getItem('bookings'))||[],
+  bookings:[],
   selectedSeats:[],
   totalPrice:0,
   pricing:{
@@ -40,7 +40,6 @@ const bookingSlice = createSlice({
     cancelBooking: (state,action) => {
       console.log('33333333333333333',action)
       state.bookings=state.bookings.filter(item=>item.seatId!==action.payload.seatId)
-      localStorage.setItem('bookings',JSON.stringify(state.bookings))
       triggerNotification.success(`You have canceled seat ${action.payload.seatId}`)
     
     },
@@ -49,7 +48,6 @@ const bookingSlice = createSlice({
       triggerNotification.success(`You have booked ${state.selectedSeats.length} seats`)
       state.selectedSeats=[]
       state.totalPrice=0
-      localStorage.setItem('bookings',JSON.stringify(state.bookings))
     },
   },
 });
